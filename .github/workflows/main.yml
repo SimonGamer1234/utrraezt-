@@ -1,0 +1,99 @@
+name: Ads Scheduler
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 0 * * *"  # 00:00 - Ad 1
+    - cron: "0 2 * * *"  # 02:00 - Ad 2
+    - cron: "0 4 * * *"  # 04:00 - Ad 3
+    - cron: "0 6 * * *"  # 06:00 - Ad 4
+    - cron: "0 8 * * *"  # 08:00 - Ad 5
+    - cron: "0 10 * * *" # 10:00 - Ad 6
+    - cron: "0 12 * * *" # 12:00 - Ad 7
+    - cron: "0 14 * * *" # 14:00 - Ad 8
+    - cron: "0 16 * * *" # 16:00 - Ad 9
+    - cron: "0 18 * * *" # 18:00 - Ad 10
+    - cron: "0 20 * * *" # 20:00 - Ad 11
+    - cron: "0 22 * * *" # 22:00 - Ad 12
+
+permissions:
+  contents: write
+
+jobs:
+  post-ad:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout repository
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      # Step 2: Load Current Ad Number
+      - name: Load Current Ad Number
+        run: |
+          if [ ! -f ad_tracker.txt ]; then
+            echo "0" > ad_tracker.txt
+          fi
+          CURRENT_AD=$(cat ad_tracker.txt)
+          echo "CURRENT_AD: $CURRENT_AD"
+          echo "CURRENT_AD=$CURRENT_AD" >> $GITHUB_ENV
+
+      # Step 3: Determine Account Token
+      - name: Determine Account Token
+        run: |
+          case $(( ${{ env.CURRENT_AD }} % 4 )) in
+            0) TOKEN=${{ secrets.ACCOUNT_1_TOKEN }} ;;
+            1) TOKEN=${{ secrets.ACCOUNT_2_TOKEN }} ;;
+            2) TOKEN=${{ secrets.ACCOUNT_3_TOKEN }} ;;
+            3) TOKEN=${{ secrets.ACCOUNT_4_TOKEN }} ;;
+          esac
+          echo "TOKEN=$TOKEN" >> $GITHUB_ENV
+
+      # Step 4: Determine Ad Content
+      - name: Determine Ad Content
+        run: |
+          case ${{ env.CURRENT_AD }} in
+            0) AD_CONTENT="${{ vars.AD_1 }}" ;;
+            1) AD_CONTENT="${{ vars.AD_2 }}" ;;
+            2) AD_CONTENT="${{ vars.AD_3 }}" ;;
+            3) AD_CONTENT="${{ vars.AD_4 }}" ;;
+            4) AD_CONTENT="${{ vars.AD_5 }}" ;;
+            5) AD_CONTENT="${{ vars.AD_6 }}" ;;
+            6) AD_CONTENT="${{ vars.AD_7 }}" ;;
+            7) AD_CONTENT="${{ vars.AD_8 }}" ;;
+            8) AD_CONTENT="${{ vars.AD_9 }}" ;;
+            9) AD_CONTENT="${{ vars.AD_10 }}" ;;
+            10) AD_CONTENT="${{ vars.AD_11 }}" ;;
+            11) AD_CONTENT="${{ vars.AD_12 }}" ;;
+          esac
+          echo "AD_CONTENT=$AD_CONTENT"
+          echo "AD_CONTENT=$AD_CONTENT" >> $GITHUB_ENV
+
+      # Step 5: Post Ad
+      - name: Post Ad
+        env:
+          DISCORD_URLS: ${{ vars.DISCORD_URLS }}
+          ACCOUNT_TOKEN: ${{ env.TOKEN }}
+          AD_CONTENT: ${{ env.AD_CONTENT }}
+        run: |
+          echo "Posting ad: $AD_CONTENT"
+          python3 1.py "$AD_CONTENT" "$ACCOUNT_TOKEN" "$DISCORD_URLS"
+
+      # Step 6: Update Ad Tracker
+      - name: Update Ad Tracker
+        run: |
+          CURRENT_AD=$(( ${{ env.CURRENT_AD }} ))
+          NEXT_AD=$(( (CURRENT_AD + 1) % 12 ))  # Assuming 12 ads in total
+          echo "$NEXT_AD" > ad_tracker.txt
+          echo "Updated tracker to NEXT_AD=$NEXT_AD"
+
+      # Step 7: Commit Updated Tracker
+      - name: Commit Updated Tracker
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add ad_tracker.txt
+          git commit -m "Update ad tracker to NEXT_AD=${{ env.NEXT_AD }}"
+          git push "https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git" HEAD:${{ github.ref_name }}
