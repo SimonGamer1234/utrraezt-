@@ -1,40 +1,57 @@
+import os
+import random
 import requests
 import time
-import random
-import sys
-import os
+import json
 
-# Parse input arguments
-urls_string = sys.argv[3]  # Repository variable containing URLs as a string
-token = sys.argv[2]        # Authorization token
-advertisement = sys.argv[1]  # Advertisement content
+# Retrieve the environment variables
+AD1 = os.getenv("REPO_VAR_1")
+AD2 = os.getenv("REPO_VAR_2")
+AD3 = os.getenv("REPO_VAR_3")
+AD4 = os.getenv("REPO_VAR_4")
+AD5 = os.getenv("REPO_VAR_5")
+AD6 = os.getenv("REPO_VAR_6")
+AD7 = os.getenv("REPO_VAR_7")
+AD8 = os.getenv("REPO_VAR_8")
+AD9 = os.getenv("REPO_VAR_9")
+AD10 = os.getenv("REPO_VAR_10")
+AD11 = os.getenv("REPO_VAR_11")
+AD12 = os.getenv("REPO_VAR_12")
+URLS = os.getenv("URLS")
+TOKEN1 = os.getenv("TOKEN_SCRT_1")
+TOKEN2 = os.getenv("TOKEN_SCRT_2")
+TOKEN3 = os.getenv("TOKEN_SCRT_3")
+TOKEN4 = os.getenv("TOKEN_SCRT_4")
+
+urls = URLS.split(',')
+
+Ads = [AD1, AD2, AD3, AD4, AD5, AD6, AD7, AD8, AD9, AD10, AD11, AD12]
+Tokens = [TOKEN1, TOKEN2, TOKEN3, TOKEN4]
 tracker_file = "ad_tracker.txt"
 
-# Split URLs string into a list of URLs
-urls = [url.strip() for url in urls_string.split(",")]
-
-# Ensure tracker file exists
 if not os.path.exists(tracker_file):
     with open(tracker_file, "w") as file:
         file.write("0")  # Initialize with 0
-
-# Load the current ad number
 with open(tracker_file, "r") as file:
     current_ad = int(file.read().strip())
 
-# Post the ad
-delay = random.uniform(2, 5)  # Random delay between posts
-try:
-    for url in urls:
-        response = requests.post(url, data={"content": advertisement}, headers={"Authorization": token})
-        if response.status_code == 200:
-            print(f"Successfully posted to {url}")
-        else:
-            print(f"Failed to post to {url}: {response.status_code} - {response.text}")
-        time.sleep(delay)
+token_index = current_ad % 4  # Use a descriptive variable name
+print(current_ad)
+print(token_index)
+Token = Tokens[token_index]
+CurrentAd = Ads[current_ad]
 
-    # Update the tracker file with the next ad number
-    with open(tracker_file, "w") as file:
-        file.write(str((current_ad + 1) % 6))  # Assuming 6 ads in total
-except Exception as e:
-    print(f"Error posting to URLs: {e}")
+
+header = {"Authorization": Token}
+payload = {"content": CurrentAd}
+
+# Loop through the links and make POST requests
+for link in urls:
+    sleeptime = random.uniform(2, 3)
+    try:
+        res = requests.post(link, data=payload, headers=header)
+        print(f"Posted to {link} : {res.status_code}")  # Print response status
+    except requests.RequestException as e:
+        print(f"Error posting to {link}: {e}")
+    print(f"Waiting {sleeptime} seconds...")
+    time.sleep(sleeptime)
