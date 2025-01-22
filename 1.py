@@ -11,22 +11,14 @@ AD3 = os.getenv("REPO_VAR_3")
 AD4 = os.getenv("REPO_VAR_4")
 AD5 = os.getenv("REPO_VAR_5")
 AD6 = os.getenv("REPO_VAR_6")
-AD7 = os.getenv("REPO_VAR_7")
-AD8 = os.getenv("REPO_VAR_8")
-AD9 = os.getenv("REPO_VAR_9")
-AD10 = os.getenv("REPO_VAR_10")
-AD11 = os.getenv("REPO_VAR_11")
-AD12 = os.getenv("REPO_VAR_12")
 URLS = os.getenv("URLS")
 TOKEN1 = os.getenv("TOKEN_SCRT_1")
 TOKEN2 = os.getenv("TOKEN_SCRT_2")
-TOKEN3 = os.getenv("TOKEN_SCRT_3")
-TOKEN4 = os.getenv("TOKEN_SCRT_4")
 
 urls = URLS.split(',')
 
-Ads = [AD1, AD2, AD3, AD4, AD5, AD6, AD7, AD8, AD9, AD10, AD11, AD12]
-Tokens = [TOKEN1, TOKEN2, TOKEN3, TOKEN4]
+Ads = [AD1, AD2, AD3, AD4, AD5, AD6]
+Tokens = [TOKEN1, TOKEN2]
 tracker_file = "ad_tracker.txt"
 
 if not os.path.exists(tracker_file):
@@ -35,7 +27,7 @@ if not os.path.exists(tracker_file):
 with open(tracker_file, "r") as file:
     current_ad = int(file.read().strip())
 
-token_index = current_ad % 4  # Use a descriptive variable name
+token_index = current_ad % 2  # Use a descriptive variable name
 print(current_ad)
 print(token_index)
 Token = Tokens[token_index]
