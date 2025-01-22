@@ -26,17 +26,9 @@ jobs:
             REPO_VAR_4: ${{ vars.AD_4}}
             REPO_VAR_5: ${{ vars.AD_5}}
             REPO_VAR_6: ${{ vars.AD_6}}
-            REPO_VAR_7: ${{ vars.AD_7}}
-            REPO_VAR_8: ${{ vars.AD_8}}
-            REPO_VAR_9: ${{ vars.AD_9}}
-            REPO_VAR_10: ${{ vars.AD_10}}
-            REPO_VAR_11: ${{ vars.AD_11}}
-            REPO_VAR_12: ${{ vars.AD_12}}
             URLS: ${{ vars.DISCORD_URLS}}
             TOKEN_SCRT_1: ${{ secrets.ACCOUNT_1_TOKEN}}
             TOKEN_SCRT_2: ${{ secrets.ACCOUNT_2_TOKEN}}
-            TOKEN_SCRT_3: ${{ secrets.ACCOUNT_3_TOKEN}}
-            TOKEN_SCRT_4: ${{ secrets.ACCOUNT_4_TOKEN}}
             
         run: |
           python3 1.py 
@@ -53,7 +45,7 @@ jobs:
       - name: Update Ad Tracker
         run: |
           CURRENT_AD=$(( ${{ env.CURRENT_AD }} ))
-          NEXT_AD=$(( (CURRENT_AD + 1) % 12 ))  # Assuming 12 ads in total
+          NEXT_AD=$(( (CURRENT_AD + 1) % 6 ))  # Assuming 12 ads in total
           echo "$NEXT_AD" > ad_tracker.txt
           echo "Updated tracker to NEXT_AD=$NEXT_AD"
       
