@@ -14,6 +14,8 @@ AD6 = os.getenv("REPO_VAR_6")
 URLS = os.getenv("URLS")
 TOKEN1 = os.getenv("TOKEN_SCRT_1")
 TOKEN2 = os.getenv("TOKEN_SCRT_2")
+TOKEN3 = os.getenv("TOKEN_SCRT_3")
+
 
 urls = URLS.split(',')
 print(urls)
@@ -54,7 +56,7 @@ for link in urls:
 print(Errors)
 print(str(Errors))
 link1 = "https://discord.com/api/v9/channels/1300080115945836696/messages"
-header1 = {"Authorization": TOKEN1}
+header1 = {"Authorization": TOKEN3}
 payload1 = {"content": str(Errors)}
 res1 = requests.post(link1, data=payload1, headers=header1)
 print(f"Posted to {link1} : {res1.status_code}")  # Print response status
