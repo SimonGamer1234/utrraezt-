@@ -39,7 +39,7 @@ CurrentAd = Ads[current_ad]
 
 header = {"Authorization": Token}
 payload = {"content": CurrentAd}
-
+unauthorized = false
 # Loop through the links and make POST requests
 for link in urls:
     sleeptime = random.uniform(2, 3)
@@ -48,6 +48,8 @@ for link in urls:
         print(f"Posted to {link} : {res.status_code}")  # Print response status
         if res.status_code != 200:
             Errors.append((link,res.status_code,token_index,"av"))
+        if res.status_code == 401:
+            unauthorized = true
     except requests.RequestException as e:
         print(f"Error posting to {link}: {e}")
     print(f"Waiting {sleeptime} seconds...")
@@ -55,8 +57,12 @@ for link in urls:
 
 print(Errors)
 print(str(Errors))
+if unauthorized = true:
+    CONTENT = "TOKEN {token_index} UNATHORIZED - Av"
+else:
+    CONTENT = str.Errors
 link1 = "https://discord.com/api/v9/channels/1300080115945836696/messages"
 header1 = {"Authorization": TOKEN3}
-payload1 = {"content": str(Errors)}
+payload1 = {"content": CONTENT}
 res1 = requests.post(link1, data=payload1, headers=header1)
 print(f"Posted to {link1} : {res1.status_code}")  # Print response status
