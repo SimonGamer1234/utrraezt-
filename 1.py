@@ -57,7 +57,7 @@ for link in urls:
 
 print(unauthorized)
 if unauthorized == 1:
-    CONTENT = f"TOKEN {token_index} UNAUTHORIZED - Av"
+    CONTENT = f"TOKEN {token_index} UNAUTHORIZED - Av - @pakoego."
 else:
     CONTENT = str.Errors
 print(CONTENT)
