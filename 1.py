@@ -55,8 +55,7 @@ for link in urls:
     print(f"Waiting {sleeptime} seconds...")
     time.sleep(sleeptime)
 
-print(Errors)
-print(str(Errors))
+print(unauthorized)
 if unauthorized == 1:
     CONTENT = "TOKEN {token_index} UNATHORIZED - Av"
 else:
