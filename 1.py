@@ -39,7 +39,7 @@ CurrentAd = Ads[current_ad]
 
 header = {"Authorization": Token}
 payload = {"content": CurrentAd}
-unauthorized = false
+unauthorized = 0
 # Loop through the links and make POST requests
 for link in urls:
     sleeptime = random.uniform(2, 3)
@@ -49,7 +49,7 @@ for link in urls:
         if res.status_code != 200:
             Errors.append((link,res.status_code,token_index,"av"))
         if res.status_code == 401:
-            unauthorized = true
+            unauthorized = 1
     except requests.RequestException as e:
         print(f"Error posting to {link}: {e}")
     print(f"Waiting {sleeptime} seconds...")
@@ -57,7 +57,7 @@ for link in urls:
 
 print(Errors)
 print(str(Errors))
-if unauthorized == true:
+if unauthorized == 1:
     CONTENT = "TOKEN {token_index} UNATHORIZED - Av"
 else:
     CONTENT = str.Errors
