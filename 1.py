@@ -60,6 +60,7 @@ if unauthorized == 1:
     CONTENT = "TOKEN {token_index} UNATHORIZED - Av"
 else:
     CONTENT = str.Errors
+print(CONTENT)
 link1 = "https://discord.com/api/v9/channels/1300080115945836696/messages"
 header1 = {"Authorization": TOKEN3}
 payload1 = {"content": CONTENT}
