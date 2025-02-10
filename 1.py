@@ -11,13 +11,13 @@ AD3 = os.getenv("REPO_VAR_3")
 AD4 = os.getenv("REPO_VAR_4")
 AD5 = os.getenv("REPO_VAR_5")
 AD6 = os.getenv("REPO_VAR_6")
-URLS = os.getenv("URLS")
+IDS = os.getenv("URLS")
 TOKEN1 = os.getenv("TOKEN_SCRT_1")
 TOKEN2 = os.getenv("TOKEN_SCRT_2")
 TOKEN3 = os.getenv("TOKEN_SCRT_3")
 
 
-urls = URLS.split(',')
+ids = IDS.split(',')
 print(urls)
 Errors = []
 Ads = [AD1, AD2, AD3, AD4, AD5, AD6]
@@ -41,7 +41,8 @@ header = {"Authorization": Token}
 payload = {"content": CurrentAd}
 unauthorized = 0
 # Loop through the links and make POST requests
-for link in urls:
+for ID in ids:
+    link = f"https://discord.com/api/v9/channels/{ID}/messages"
     sleeptime = random.uniform(2, 3)
     try:
         res = requests.post(link, data=payload, headers=header)
