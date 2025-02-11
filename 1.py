@@ -18,7 +18,6 @@ TOKEN3 = os.getenv("TOKEN_SCRT_3")
 
 
 ids = IDS.split(',')
-print(urls)
 Errors = []
 Ads = [AD1, AD2, AD3, AD4, AD5, AD6]
 Tokens = [TOKEN1, TOKEN2]
