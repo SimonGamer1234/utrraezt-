@@ -30,6 +30,7 @@ jobs:
             TOKEN_SCRT_1: ${{ secrets.ACCOUNT_1_TOKEN}}
             TOKEN_SCRT_2: ${{ secrets.ACCOUNT_2_TOKEN}}
             TOKEN_SCRT_3: ${{ secrets.ACCOUNT_3_TOKEN}}
+            BOT_TOKEN: ${{secrets.BOT_TOKEN}}
             
         run: |
           python3 1.py 
