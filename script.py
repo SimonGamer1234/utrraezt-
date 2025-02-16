@@ -32,6 +32,7 @@ for Ad in Ads:
   for ID in ids:
     response = requests.get(f"https://discord.com/api/v10/channels/{ID}", headers=header)
     data = response.json()
+    print(data)
     server_id = data['guild_id']
     intID = int(server_id)
     link = f"https://discord.com/api/v9/guilds/{intID}/messages/search"
