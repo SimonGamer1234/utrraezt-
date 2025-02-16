@@ -18,7 +18,7 @@ BOT_TOKEN = os.getenv("BOT_TOKEN")
 author_ids = [1148657062599983237, 841925129323020298, 1285602869638070304, 1303383091468963841]
 ids = IDS.split(',')
 totalcount = 0
-Ads = [AD1, AD2, AD3, AD4, AD5, AD6, AD7, AD8, AD9, AD10, AD11, AD12]
+Ads = [AD1, AD2, AD3, AD4, AD5, AD6]
 for Ad in Ads:
   for Ad2 in Ads:
     if Ad == Ad2:
