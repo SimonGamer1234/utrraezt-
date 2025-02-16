@@ -27,7 +27,7 @@ for Ad in Ads:
 print(Ads)
 for Ad in Ads:
   totalcount = 0
-  header = {"Authorization": TOKEN3}   
+  header = {"Authorization": TOKEN1}   
   params = {"content": Ad, "author_id":author_ids, "limit": 25}
   for ID in ids:
     response = requests.get(f"https://discord.com/api/v10/channels/{ID}", headers=header)
