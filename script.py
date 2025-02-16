@@ -53,6 +53,6 @@ for Ad in Ads:
   botheader = {"Authorization": f"Bot {BOT_TOKEN}"}
   CONTENT = f"Avertisement\n{Ad}\n\n{totalcount}"
   payload = {"content": CONTENT}
-  LINK = "https://discord.com/api/v9/channels/1302654558023057540/messages"
+  LINK = "https://discord.com/api/v9/channels/1302654581758496809/messages"
   post = requests.post(LINK, data=payload, headers=botheader)
   print(post.text)
