@@ -28,7 +28,7 @@ jobs:
           REPO_VAR_11: ${{ vars.AD_11}}
           REPO_VAR_12: ${{ vars.AD_12}}
           URLS: ${{ vars.DISCORD_URLS}}
-          TOKEN_SCRT_3: ${{ secrets.ACCOUNT_3_TOKEN}}
+          TOKEN_SCRT_1: ${{ secrets.ACCOUNT_1_TOKEN}}
           BOT_TOKEN: ${{secrets.BOT_TOKEN}}
 
       run: |
