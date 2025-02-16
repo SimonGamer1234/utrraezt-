@@ -1,0 +1,35 @@
+name: Finder
+
+on: 
+  workflow_dispatch:
+  schedule:
+  - cron: '0 18 * * *'
+
+jobs:
+  find:
+    runs-on: ubuntu-latest
+    steps:
+
+    - name: Checkout Respitory
+      uses: actions/checkout@v3
+
+    - name: Lol
+      env: 
+          REPO_VAR_1: ${{ vars.AD_1}}
+          REPO_VAR_2: ${{ vars.AD_2}}
+          REPO_VAR_3: ${{ vars.AD_3}}
+          REPO_VAR_4: ${{ vars.AD_4}}
+          REPO_VAR_5: ${{ vars.AD_5}}
+          REPO_VAR_6: ${{ vars.AD_6}}
+          REPO_VAR_7: ${{ vars.AD_7}}
+          REPO_VAR_8: ${{ vars.AD_8}}
+          REPO_VAR_9: ${{ vars.AD_9}}
+          REPO_VAR_10: ${{ vars.AD_10}}
+          REPO_VAR_11: ${{ vars.AD_11}}
+          REPO_VAR_12: ${{ vars.AD_12}}
+          URLS: ${{ vars.DISCORD_URLS}}
+          TOKEN_SCRT_3: ${{ secrets.ACCOUNT_3_TOKEN}}
+          BOT_TOKEN: ${{secrets.BOT_TOKEN}}
+
+      run: |
+        python3 script.py
