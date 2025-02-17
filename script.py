@@ -31,12 +31,16 @@ for Ad in Ads:
   params = {"content": Ad, "author_id":author_ids, "limit": 25}
   for ID in ids:
     response = requests.get(f"https://discord.com/api/v10/channels/{ID}", headers=header)
-    data = response.json()
-    print(data)
-    server_id = data['guild_id']
-    intID = int(server_id)
-    link = f"https://discord.com/api/v9/guilds/{intID}/messages/search"
-    print(link)
+    if response.status_code == 200:
+      try:
+        data = response.json()
+        print(data)
+        server_id = data['guild_id']
+        intID = int(server_id)
+        link = f"https://discord.com/api/v9/guilds/{intID}/messages/search"
+        print(link)
+    else:
+      print(f"Request failed with status code {res.status_code}: {res.text}")
     time.sleep(random.uniform(2,3))
     res = requests.get(link, params=params, headers=header)
     if res.status_code == 200:
