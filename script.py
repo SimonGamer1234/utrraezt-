@@ -39,6 +39,9 @@ for Ad in Ads:
         intID = int(server_id)
         link = f"https://discord.com/api/v9/guilds/{intID}/messages/search"
         print(link)
+      except requests.exceptions.JSONDecodeError:
+        print("Response is not JSON. Raw response:")
+        print(res.text)
     else:
       print(f"Request failed with status code {res.status_code}: {res.text}")
     time.sleep(random.uniform(2,3))
