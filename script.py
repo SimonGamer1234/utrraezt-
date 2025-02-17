@@ -44,7 +44,7 @@ for Ad in Ads:
         print(res.text)
     else:
       print(f"Request failed with status code {res.status_code}: {res.text}")
-    time.sleep(random.uniform(2,3))
+    time.sleep(random.uniform(5,7))
     res = requests.get(link, params=params, headers=header)
     if res.status_code == 200:
         try:
