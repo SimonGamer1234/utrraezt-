@@ -43,7 +43,7 @@ for Ad in Ads:
         print("Response is not JSON. Raw response:")
         print(res.text)
     else:
-      print(f"Request failed with status code {res.status_code}: {res.text}")
+      print(f"Request failed with status code {response.status_code}: {response.text}")
     time.sleep(random.uniform(5,7))
     res = requests.get(link, params=params, headers=header)
     if res.status_code == 200:
