@@ -39,24 +39,26 @@ for Ad in Ads:
         intID = int(server_id)
         link = f"https://discord.com/api/v9/guilds/{intID}/messages/search"
         print(link)
-      except requests.exceptions.JSONDecodeError:
-        print("Response is not JSON. Raw response:")
-        print(res.text)
-    else:
-      print(f"Request failed with status code {response.status_code}: {response.text}")
-    time.sleep(random.uniform(5,7))
-    res = requests.get(link, params=params, headers=header)
-    if res.status_code == 200:
-        try:
+        time.sleep(random.uniform(5,7))
+        res = requests.get(link, params=params, headers=header)
+        if res.status_code == 200:
+          try:
             data = res.json()
             total_results = data.get("total_results", 0)
             totalcount += int(total_results)
             print(total_results)  # Parsed JSON response
-        except requests.exceptions.JSONDecodeError:
+          except requests.exceptions.JSONDecodeError:
             print("Response is not JSON. Raw response:")
             print(res.text)
+        else:
+          print(f"Request failed with status code {res.status_code}: {res.text}")
+      except requests.exceptions.JSONDecodeError:
+        print("Response is not JSON. Raw response:")
+        print(res.text)
+      
     else:
-        print(f"Request failed with status code {res.status_code}: {res.text}")
+      print(f"Request failed with status code {response.status_code}: {response.text}")
+   
   print(totalcount)
   botheader = {"Authorization": f"Bot {BOT_TOKEN}"}
   CONTENT = f"Avertisement\n{Ad}\n\n{totalcount}"
