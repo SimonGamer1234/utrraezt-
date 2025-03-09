@@ -74,7 +74,7 @@ def UpdateVariable(Ad):
   if NewDays == 0:
      SendMessage(f"Ad {AdContent} has expired", BOT_TOKEN, "https://discord.com/api/v9/channels/1302654558023057540/messages")
   NAME = f"AD_{Ads.index(Ad) + 1}"
-  Text = f"{AdContent}\n=divider\n{TotalPosts}\n=divider\n{NewDays}\n=divider\n{KeyWords}"
+  Text = f"{AdContent}\n=divider=\n{TotalPosts}\n=divider=\n{NewDays}\n=divider=\n{KeyWords}"
   headers = {
     'Accept': 'application/vnd.github+json',
     'Authorization': f'Bearer {GITHUB_TOKEN}',
