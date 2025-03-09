@@ -24,7 +24,7 @@ GITHUB_TOKEN = os.getenv("GTOKEN")
 author_ids = [1148657062599983237, 841925129323020298, 1285602869638070304, 1303383091468963841]
 ids = IDS.split(',')
 totalcount = 0
-Ads = [AD1, AD2, AD3, AD4, AD5, AD6, AD7, AD8, AD92]
+Ads = [AD1, AD2, AD3, AD4, AD5, AD6, AD7, AD8, AD9]
 Ads2 = list(set(Ads))    
 print(Ads)
 
