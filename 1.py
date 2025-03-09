@@ -40,9 +40,9 @@ print(token_index)
 Token = Tokens[token_index]
 CurrentAd = Ads[current_ad]
 
-
+Text = CurrentAd.split("\n=divider=\n")[0]
 header = {"Authorization": Token}
-payload = {"content": CurrentAd}
+payload = {"content": Text}
 unauthorized = 0
 # Loop through the links and make POST requests
 for ID in ids:

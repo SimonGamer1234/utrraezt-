@@ -16,7 +16,7 @@ AD8 = os.getenv("REPO_VAR_8")
 AD9 = os.getenv("REPO_VAR_9")
 IDS = os.getenv("URLS")
 TOKEN3 = os.getenv("TOKEN_SCRT_1")
-BOT_TOKEN = os.getenv("BOT_TOKEN")
+BOT_TOKEN = f"Bot {os.getenv("BOT_TOKEN")}"
 OWNER = "SimonGamer1234"
 REPO = "aergaer"
 GITHUB_TOKEN = os.getenv("GTOKEN")
@@ -29,8 +29,8 @@ Ads2 = list(set(Ads))
 print(Ads)
 
 def GetGuildIds(ids):
+    GuildIds = []
     for ID in ids:
-      GuildIds = []
       header = {"Authorization": TOKEN3}
       response = requests.get(f"https://discord.com/api/v10/channels/{ID}", headers=header)
       if response.status_code == 200:
@@ -42,9 +42,10 @@ def GetGuildIds(ids):
     return GuildIds
 
 def SearchForPosts(Keyword, ids, author_ids):
+  print(ids)
   totalcount = 0
   header = {"Authorization": TOKEN3}
-  params = {"content": Ad, "author_id": author_ids, "limit": 25}
+  params = {"content": Keyword, "author_id": author_ids, "limit": 25}
   for ID in ids:
     ID = int(ID)
     link = f"https://discord.com/api/v9/guilds/{ID}/messages/search"
@@ -66,24 +67,29 @@ def SearchForPosts(Keyword, ids, author_ids):
   return totalcount
 
 def UpdateVariable(Ad):
+  print(Ad.split("\n=divider=\n"))
   AdContent = Ad.split("\n=divider=\n")[0]
   TotalPosts = Ad.split("\n=divider=\n")[1]
-  DaysLeft = Ad.split("\n=divider=\n")[2]
-  KeyWords = Ad.split("\n=divider=\n")[3]
-  NewDays = int(DaysLeft) - 1
-  if NewDays == 0:
-     SendMessage(f"Ad {AdContent} has expired", BOT_TOKEN, "https://discord.com/api/v9/channels/1302654558023057540/messages")
-  NAME = f"AD_{Ads.index(Ad) + 1}"
-  Text = f"{AdContent}\n=divider=\n{TotalPosts}\n=divider=\n{NewDays}\n=divider=\n{KeyWords}"
-  headers = {
-    'Accept': 'application/vnd.github+json',
-    'Authorization': f'Bearer {GITHUB_TOKEN}',
-    'X-GitHub-Api-Version': '2022-11-28',
-    'Content-Type': 'application/json',}
-  data = {"value": Text}
-  response = requests.patch(f'https://api.github.com/repos/{OWNER}/{REPO}/actions/variables/{NAME}', headers=headers, json=data)
-  print(response.status_code)
-  return DaysLeft, TotalPosts, KeyWords, AdContent
+  if TotalPosts == "Base_Variable":
+      print("Base Variable")
+      return "Base_Variable", "Base_Variable", "Base_Variable", "Base_Variable"
+  else:   
+    DaysLeft = Ad.split("\n=divider=\n")[2]
+    KeyWords = Ad.split("\n=divider=\n")[3]
+    NewDays = int(DaysLeft) - 1
+    if NewDays == 0:
+      SendMessage(f"Ad {AdContent} has expired", BOT_TOKEN, "https://discord.com/api/v9/channels/1302654558023057540/messages")
+    NAME = f"AD_{Ads.index(Ad) + 1}"
+    Text = f"{AdContent}\n=divider=\n{TotalPosts}\n=divider=\n{NewDays}\n=divider=\n{KeyWords}"
+    headers = {
+      'Accept': 'application/vnd.github+json',
+      'Authorization': f'Bearer {GITHUB_TOKEN}',
+      'X-GitHub-Api-Version': '2022-11-28',
+      'Content-Type': 'application/json',}
+    data = {"value": Text}
+    response = requests.patch(f'https://api.github.com/repos/{OWNER}/{REPO}/actions/variables/{NAME}', headers=headers, json=data)
+    print(response.status_code)
+    return DaysLeft, TotalPosts, KeyWords, AdContent
 
 
 def SendMessage(Message, Account, Destination):
