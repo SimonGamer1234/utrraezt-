@@ -27,6 +27,7 @@ jobs:
           URLS: ${{ vars.DISCORD_URLS}}
           TOKEN_SCRT_1: ${{ secrets.ACCOUNT_1_TOKEN}}
           BOT_TOKEN: ${{secrets.BOT_TOKEN}}
+          GTOKEN: ${{ secrets.GTOKEN}}
 
       run: |
         python3 script.py
