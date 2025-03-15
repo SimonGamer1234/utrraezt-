@@ -40,9 +40,19 @@ print(token_index)
 Token = Tokens[token_index]
 CurrentAd = Ads[current_ad]
 
-Text = CurrentAd.split("\n=divider=\n")[0]
+SPLIT_AD = CurrentAd.split("\n=divider=\n")
+SPLIT_AD2 = CurrentAd.split("\r\n=divider=\r\n")
+if len(SPLIT_AD) > 1:
+    CONTENT = SPLIT_AD[0]
+elif len(SPLIT_AD2) > 1:
+    CONTENT = SPLIT_AD2[0]
+else:
+    print("Error: No divider found in ad")
+    exit(1)
+
+
 header = {"Authorization": Token}
-payload = {"content": Text}
+payload = {"content": CONTENT}
 unauthorized = 0
 # Loop through the links and make POST requests
 for ID in ids:
