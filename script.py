@@ -67,15 +67,27 @@ def SearchForPosts(Keyword, ids, author_ids):
   return totalcount
 
 def UpdateVariable(Ad):
+  Splitted1 = Ad.split("\n=divider=\n")
+  Splitted2 = Ad.split("\r\n=divider=\r\n")
+  if len(Splitted1) == 4:
+    print(Splitted1)
+    AdContent = Splitted1[0]
+    TotalPosts = Splitted1[1]
+    DaysLeft = Splitted1[2]
+    KeyWords = Splitted1[3]
+  elif len(Splitted2) == 4:
+    print(Splitted2)
+    AdContent = Splitted2[0]
+    TotalPosts = Splitted2[1]
+    DaysLeft = Splitted2[2]
+    KeyWords = Splitted2[3]
+  else:
+     print("Error wiht splitting")
   print(Ad.split("\n=divider=\n"))
-  AdContent = Ad.split("\n=divider=\n")[0]
-  TotalPosts = Ad.split("\n=divider=\n")[1]
   if TotalPosts == "Base_Variable":
       print("Base Variable")
       return "Base_Variable", "Base_Variable", "Base_Variable", "Base_Variable"
   else:   
-    DaysLeft = Ad.split("\n=divider=\n")[2]
-    KeyWords = Ad.split("\n=divider=\n")[3]
     NewDays = int(DaysLeft) - 1
     if NewDays == 0:
       SendMessage(f"Ad {AdContent} has expired", BOT_TOKEN, "https://discord.com/api/v9/channels/1302654558023057540/messages")
