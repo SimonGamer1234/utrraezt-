@@ -74,7 +74,7 @@ print(unauthorized)
 if unauthorized == 1:
     CONTENT = f"TOKEN {token_index} UNAUTHORIZED - Av - <@1148657062599983237>\n\nContent:\n{CONTENT}"
 else:
-    CONTENT = str(Errors)
+    CONTENT = f"{str(Errors)}\n\nContent:\n{CONTENT}"
 print(CONTENT)
 link1 = "https://discord.com/api/v9/channels/1300080115945836696/messages"
 header1 = {"Authorization": f"Bot {BOT_TOKEN}"}
